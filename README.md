@@ -68,7 +68,7 @@ make ask QUERY="What did the speaker say about their experience abroad?"
 ```
 The system will retrieve relevant information and generate an answer using AI.
 
-### 3. Database Management
+## Database Management
 
 The `rag_system/cleaner.py` script provides utilities to manage your ChromaDB.
 
