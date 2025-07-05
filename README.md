@@ -24,7 +24,9 @@ Before you begin, ensure you have the following installed on your system:
 *   **Git**: For cloning the repository.
     *   [Download Git](https://git-scm.com/downloads)
 
-## Installation
+## Quick Start
+
+To get started with MP4-RAG, follow these simple steps:
 
 1.  **Clone the repository**:
     ```bash
@@ -32,105 +34,66 @@ Before you begin, ensure you have the following installed on your system:
     cd mp4-rag
     ```
 
-2.  **Set up a Python virtual environment**:
-    It's highly recommended to use a virtual environment to manage dependencies.
+2.  **Run the setup**:
     ```bash
-    python3 -m venv venv
+    make setup
     ```
+    This command will set up a Python virtual environment, install all necessary dependencies, and guide you through configuring your environment variables.
 
-3.  **Activate the virtual environment**:
-    *   **macOS/Linux**:
-        ```bash
-        source venv/bin/activate
-        ```
-    *   **Windows**:
-        ```bash
-        .\venv\Scripts\activate
-        ```
-
-4.  **Install Python dependencies**:
-    ```bash
-    pnpm install # Or pip install -r requirements.txt
-    ```
-
-5.  **Configure Environment Variables**:
-    Create a `.env` file in the root directory of the project and add your API keys and model preferences.
-
+3.  **Configure API Keys**:
+    After running `make setup`, you will be prompted to create a `.env` file. Ensure you add your OpenAI and Google API keys to this file:
     ```dotenv
     OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
     GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
-
-    # Optional: Specify OpenAI transcription model (default: gpt-4o-transcribe)
-    # OPENAI_TRANSCRIPTION_MODEL="whisper-1"
-
-    # Optional: Specify Gemini model for title generation and RAG (default: gemini-1.5-flash)
-    # GEMINI_MODEL="gemini-1.5-pro"
-
-    # Optional: Specify OpenAI embedding model (default: text-embedding-3-small)
-    # OPENAI_EMBEDDING_MODEL="text-embedding-3-large"
-
-    # Optional: Set to 'true' for development mode (limits audio processing to 30 seconds)
-    # DEV_MODE="true"
     ```
-
-    **Note**: Ensure you have obtained your API keys from [OpenAI](https://platform.openai.com/account/api-keys) and [Google AI Studio](https://aistudio.google.com/app/apikey).
+    **Note**: Obtain your API keys from [OpenAI](https://platform.openai.com/account/api-keys) and [Google AI Studio](https://aistudio.google.com/app/apikey).
 
 ## Usage
 
-The `main.py` script is the primary entry point for interacting with MP4-RAG.
-
 ### 1. Upload and Transcribe a File
 
-To process a video or audio file, use the `--upload` flag:
+To process a video or audio file and add its transcription to the database, use the `upload` command:
 
 ```bash
-python3 main.py --upload
+make upload
 ```
-
-This will:
-*   Open a native file selection dialog (macOS only for now).
-*   Convert the selected file to MP3.
-*   Transcribe the audio using OpenAI.
-*   Generate a title using Gemini.
-*   Index the transcription into the ChromaDB.
-*   Clean up temporary audio files.
+This will open a file selection dialog, transcribe the selected file, generate a title, and index the transcription into the ChromaDB.
 
 ### 2. Query the Knowledge Base
 
-To query the indexed transcriptions, use the `--query` flag followed by your question:
+To ask questions about your indexed transcriptions, use the `ask` command with your query:
 
 ```bash
-python3 main.py --query "What did the speaker say about their experience abroad?"
+make ask QUERY="What did the speaker say about their experience abroad?"
 ```
-
-The system will retrieve relevant sections from your transcriptions and generate an answer using Gemini's RAG capabilities.
+The system will retrieve relevant information and generate an answer using AI.
 
 ### 3. Database Management
 
 The `rag_system/cleaner.py` script provides utilities to manage your ChromaDB.
 
-*   **Interactive Deletion (macOS/Linux)**:
-    Running `rag_system/cleaner.py` without any arguments will launch an interactive curses-based interface, allowing you to select and delete documents from the database.
+*   **Interactive Deletion (macOS/Linux only)** (`make clean-db`):
+    Running `make clean-db` will launch an interactive interface, allowing you to select and delete documents from the database. This feature is available only on macOS and Linux.
     ```bash
-    python3 rag_system/cleaner.py
+    make clean-db
     ```
 
-*   **List all indexed documents**:
+*   **List all indexed documents** (`make show-db`):
     ```bash
-    python3 rag_system/cleaner.py list
+    make show-db
     ```
 
 *   **Delete specific documents by ID**:
-    (First, use `list` to find the IDs)
+    (First, use `make show-db` to find the IDs)
     ```bash
     python3 rag_system/cleaner.py delete <document_id_1> <document_id_2> ...
     # Example: python3 rag_system/cleaner.py delete 1a2b3c4d5e6f 7g8h9i0j1k2l
     ```
     **Note**: On Windows, the interactive mode is not supported. You must use the `list` and `delete <id>` commands directly.
 
-*   **Delete the entire database**:
+*   **Delete the entire database** (`make clean-full-db`):
     ```bash
-    python3 rag_system/cleaner.py delete-all
+    make clean-full-db
     ```
     **Warning**: This action is irreversible and will remove all indexed transcriptions.
 
