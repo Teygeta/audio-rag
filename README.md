@@ -2,16 +2,6 @@
 
 AUDIO-RAG is a Python-based application designed to process video and audio files, transcribe their content, index the transcriptions into a vector database, and allow users to query this knowledge base using Retrieval Augmented Generation (RAG). This system helps you extract valuable information from your multimedia content by making it searchable and queryable.
 
-## Features
-
-*   **Multimedia to Audio Conversion**: Converts various video and audio formats to MP3 using FFmpeg.
-*   **AI-Powered Transcription**: Transcribes audio files using OpenAI's Whisper API.
-*   **Smart Title Generation**: Generates concise and descriptive titles for transcriptions using Google's Gemini API.
-*   **Vector Database Indexing**: Indexes transcribed content into a ChromaDB vector database for efficient semantic search.
-*   **Retrieval Augmented Generation (RAG)**: Answers user queries by retrieving relevant information from the indexed transcriptions and generating responses using Google's Gemini API.
-*   **Database Management**: Tools to list, delete specific, or clear the entire ChromaDB.
-*   **Developer Mode**: Option to limit audio processing to the first 30 seconds for faster testing.
-
 ## Requirements
 
 Before you begin, ensure you have the following installed on your system:
@@ -26,12 +16,12 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Quick Start
 
-To get started with MP4-RAG, follow these simple steps:
+To get started with audio-rag, follow these simple steps:
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/your-username/mp4-rag.git # Replace with your actual repo URL
-    cd mp4-rag
+    git clone https://github.com/Teygeta/audio-rag
+    cd audio-rag
     ```
 
 2.  **Run the setup**:
