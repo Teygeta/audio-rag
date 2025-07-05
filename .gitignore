@@ -1,0 +1,19 @@
+# Ambiente virtuale
+venv/
+
+# File di ambiente con chiavi segrete
+.env
+
+# File di sistema di macOS
+.DS_Store
+
+# Bytecode Python
+__pycache__/
+*.pyc
+
+# Generated data
+chroma_db/
+transcriptions/
+
+logs/
+temp/
