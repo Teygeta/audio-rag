@@ -1,6 +1,6 @@
-# MP4-RAG: Video/Audio Transcription, Indexing, and Retrieval
+# AUDIO-RAG: Video/Audio Transcription, Indexing, and Retrieval
 
-MP4-RAG is a Python-based application designed to process video and audio files, transcribe their content, index the transcriptions into a vector database, and allow users to query this knowledge base using Retrieval Augmented Generation (RAG). This system helps you extract valuable information from your multimedia content by making it searchable and queryable.
+AUDIO-RAG is a Python-based application designed to process video and audio files, transcribe their content, index the transcriptions into a vector database, and allow users to query this knowledge base using Retrieval Augmented Generation (RAG). This system helps you extract valuable information from your multimedia content by making it searchable and queryable.
 
 ## Features
 
