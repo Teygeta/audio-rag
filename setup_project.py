@@ -86,6 +86,8 @@ def main():
     # Activate venv and upgrade pip
     activate_venv_and_run(['pip', 'install', '--upgrade', 'pip'])
     install_dependencies()
+    # Install the project in editable mode to register entry points
+    activate_venv_and_run(['pip', 'install', '-e', '.'])
     setup_env_file()
     print("--- Setup Complete! ---")
     print("To activate the virtual environment, run:")

@@ -9,6 +9,17 @@ __pycache__/
 *.pyc
 *.egg-info
 
+build/
+dist/
+
+.vscode/
+.idea/
+
+.coverage
+.pytest_cache/
+.ipynb_checkpoints
+.thumbnails
+
 chroma_db/
 transcriptions/
 
