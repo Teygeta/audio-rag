@@ -32,7 +32,13 @@ def run_query_flow(query_string):
     else:
         print("No relevant documents found for your query. Cannot generate an AI response.")
 
+def main():
+    if len(sys.argv) > 1:
+        query_string = " ".join(sys.argv[1:])
+        run_query_flow(query_string)
+    else:
+        print("Usage: python app_query.py <your_query_string>")
+        sys.exit(1)
+
 if __name__ == "__main__":
-    # Example usage if run directly
-    test_query = "Cosa ha detto riguardo alla sua esperienza lavorativa all'estero?"
-    run_query_flow(test_query)
+    main()

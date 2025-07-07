@@ -41,53 +41,53 @@ Segui questi passaggi per configurare il progetto sul tuo sistema:
 
 Una volta completato il setup e attivato l'ambiente virtuale, puoi utilizzare i seguenti script:
 
-*   **`setup-project`**: Esegue il setup iniziale del progetto (creazione venv, installazione dipendenze, configurazione .env). Utile se hai bisogno di riconfigurare l'ambiente.
+*   **`setup_project.py`**: Esegue il setup iniziale del progetto (creazione venv, installazione dipendenze, configurazione .env). Utile se hai bisogno di riconfigurare l'ambiente.
 
     ```bash
-    setup-project
+    python setup_project.py
     ```
 
-*   **`verify-setup`**: Verifica che l'ambiente di setup sia corretto (versione Python, dipendenze, FFmpeg, chiavi API, directory ChromaDB).
+*   **`verify_setup.py`**: Verifica che l'ambiente di setup sia corretto (versione Python, dipendenze, FFmpeg, chiavi API, directory ChromaDB).
 
     ```bash
-    verify-setup
+    python verify_setup.py
     ```
 
-*   **`run-app-query`**: Esegue la logica per interrogare il database indicizzato. L'uso specifico potrebbe dipendere dall'implementazione interna (es. richiede input da riga di comando o avvia un'interfaccia).
+*   **`app_query.py`**: Esegue la logica per interrogare il database indicizzato.
 
     ```bash
-    run-app-query # Potrebbe richiedere argomenti, controlla l'implementazione di app_query.py
+    python app_query.py "La tua domanda qui"
     ```
 
-*   **`run-app-upload`**: Esegue la logica per l'upload e l'ingestione di nuovi file audio/video per la trascrizione e l'indicizzazione.
+*   **`app_upload.py`**: Esegue la logica per l'upload e l'ingestione di nuovi file audio/video per la trascrizione e l'indicizzazione.
 
     ```bash
-    run-app-upload # Potrebbe richiedere argomenti (es. percorso file), controlla l'implementazione di app_upload.py
+    python app_upload.py <percorso_del_file_audio/video>
     ```
 
-*   **`show-db`**: Mostra il contenuto del database ChromaDB.
+*   **`rag_system/verifier.py`**: Mostra il contenuto del database ChromaDB.
 
     ```bash
-    show-db
+    python rag_system/verifier.py
     ```
 
-*   **`manage-db`**: Permette di gestire il database ChromaDB. Supporta i seguenti sottocomandi:
+*   **`rag_system/cleaner.py`**: Permette di gestire il database ChromaDB. Supporta i seguenti sottocomandi:
 
     -   Listare documenti:
 
         ```bash
-        manage-db list
+        python rag_system/cleaner.py list
         ```
 
     -   Cancellare documenti specifici per ID:
 
         ```bash
-        manage-db delete <id1> <id2> ...
+        python rag_system/cleaner.py delete <id1> <id2> ...
         ```
 
     -   Cancellare l'intero database:
 
         ```bash
-        manage-db delete-all
+        python rag_system/cleaner.py delete-all
         ```
 
