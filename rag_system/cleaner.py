@@ -59,7 +59,11 @@ def display_documents_cli(documents):
         content_snippet = doc_data['content'][:100].replace("\n", " ") + "..." if doc_data['content'] else ""
         source = doc_data['metadata'].get('source', 'N/A')
         indexed_at = doc_data['metadata'].get('indexed_at', 'N/A')
-        print(f'{i+1}. ID: {doc_id}, Source: {source}, Indexed At: {indexed_at}, Content: "{content_snippet}"')
+        print(f'{i+1}.')
+        print(f'   ID: {doc_id}')
+        print(f'   Source: {source}')
+        print(f'   Indexed At: {indexed_at}')
+        print(f'   Content: "{content_snippet}"')
         indexed_docs[str(i+1)] = doc_id
     return indexed_docs
 
@@ -182,7 +186,7 @@ def delete_full_db():
     else:
         print("Deletion cancelled.")
 
-if __name__ == "__main__":
+def main():
     # If command line arguments are provided, use CLI mode
     if len(sys.argv) >= 2:
         command = sys.argv[1]
@@ -210,3 +214,6 @@ if __name__ == "__main__":
             print(f"Error initializing curses: {e}", file=sys.stderr)
             print("Interactive mode requires a curses-compatible terminal. Use: python cleaner.py [list | delete <id1> ... | delete-all]", file=sys.stderr)
             sys.exit(1)
+
+if __name__ == "__main__":
+    main()

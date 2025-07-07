@@ -1,120 +1,93 @@
-# AUDIO-RAG: Video/Audio Transcription, Indexing, and Retrieval
+# Audio-RAG Project
 
-AUDIO-RAG is a Python-based application designed to process video and audio files, transcribe their content, index the transcriptions into a vector database, and allow users to query this knowledge base using Retrieval Augmented Generation (RAG). This system helps you extract valuable information from your multimedia content by making it searchable and queryable.
+Questo progetto implementa un sistema di Retrieval Augmented Generation (RAG) per contenuti audio/video. Permette di trascrivere file multimediali, indicizzare il testo risultante in un database vettoriale (ChromaDB) e interrogare il database per trovare informazioni pertinenti.
 
-## Requirements
+## Setup
 
-Before you begin, ensure you have the following installed on your system:
+Segui questi passaggi per configurare il progetto sul tuo sistema:
 
-*   **Python 3.9+**: [Download Python](https://www.python.org/downloads/)
-*   **FFmpeg**: A powerful tool for multimedia processing.
-    *   **macOS**: `brew install ffmpeg` (using Homebrew)
-    *   **Linux**: `sudo apt update && sudo apt install ffmpeg`
-    *   **Windows**: Follow instructions on the [FFmpeg website](https://ffmpeg.org/download.html)
-*   **Git**: For cloning the repository.
-    *   [Download Git](https://git-scm.com/downloads)
+1.  **Clona il repository:**
 
-## Quick Start
-
-To get started with audio-rag, follow these simple steps:
-
-1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/Teygeta/audio-rag
-    cd audio-rag
+    git clone <URL del repository>
+    cd audio-rag # o il nome della directory del progetto
     ```
 
-2.  **Run the setup**:
+2.  **Esegui lo script di setup cross-platform:**
+
     ```bash
-    make setup
+    python -m setup_project
     ```
-    This command will set up a Python virtual environment, install all necessary dependencies, and guide you through configuring your environment variables.
 
-3.  **Configure API Keys**:
-    After running `make setup`, you will be prompted to create a `.env` file. Ensure you add your OpenAI and Google API keys to this file:
-    ```dotenv
-    OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
-    GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
-    ```
-    **Note**: Obtain your API keys from [OpenAI](https://platform.openai.com/account/api-keys) and [Google AI Studio](https://aistudio.google.com/app/apikey).
+    Questo script creerà un ambiente virtuale (`.venv`), installerà le dipendenze necessarie e ti guiderà nella configurazione delle chiavi API nel file `.env`.
 
-## Usage
+3.  **Attiva l'ambiente virtuale:**
 
-### 1. Upload and Transcribe a File
+    -   Su Linux/macOS:
 
-To process a video or audio file and add its transcription to the database, use the `upload` command:
+        ```bash
+        source .venv/bin/activate
+        ```
 
-```bash
-make upload
-```
-This will open a file selection dialog, transcribe the selected file, generate a title, and index the transcription into the ChromaDB.
+    -   Su Windows:
 
-### 2. Query the Knowledge Base
+        ```bash
+        .venv\Scripts\activate
+        ```
 
-To ask questions about your indexed transcriptions, use the `ask` command with your query:
+    Assicurati che l'ambiente virtuale sia attivo ogni volta che lavori al progetto (vedrai `(.venv)` all'inizio del prompt del tuo terminale).
 
-```bash
-make ask QUERY="What did the speaker say about their experience abroad?"
-```
-The system will retrieve relevant information and generate an answer using AI.
+## Utilizzo
 
-## Database Management
+Una volta completato il setup e attivato l'ambiente virtuale, puoi utilizzare i seguenti script:
 
-The `rag_system/cleaner.py` script provides utilities to manage your ChromaDB.
+*   **`setup-project`**: Esegue il setup iniziale del progetto (creazione venv, installazione dipendenze, configurazione .env). Utile se hai bisogno di riconfigurare l'ambiente.
 
-*   **Interactive Deletion (macOS/Linux only)** (`make clean-db`):
-    Running `make clean-db` will launch an interactive interface, allowing you to select and delete documents from the database. This feature is available only on macOS and Linux.
     ```bash
-    make clean-db
+    setup-project
     ```
 
-*   **List all indexed documents** (`make show-db`):
+*   **`verify-setup`**: Verifica che l'ambiente di setup sia corretto (versione Python, dipendenze, FFmpeg, chiavi API, directory ChromaDB).
+
     ```bash
-    make show-db
+    verify-setup
     ```
 
-*   **Delete specific documents by ID**:
-    (First, use `make show-db` to find the IDs)
+*   **`run-app-query`**: Esegue la logica per interrogare il database indicizzato. L'uso specifico potrebbe dipendere dall'implementazione interna (es. richiede input da riga di comando o avvia un'interfaccia).
+
     ```bash
-    python3 rag_system/cleaner.py delete <document_id_1> <document_id_2> ...
-    # Example: python3 rag_system/cleaner.py delete 1a2b3c4d5e6f 7g8h9i0j1k2l
+    run-app-query # Potrebbe richiedere argomenti, controlla l'implementazione di app_query.py
     ```
-    **Note**: On Windows, the interactive mode is not supported. You must use the `list` and `delete <id>` commands directly.
 
-*   **Delete the entire database** (`make clean-full-db`):
+*   **`run-app-upload`**: Esegue la logica per l'upload e l'ingestione di nuovi file audio/video per la trascrizione e l'indicizzazione.
+
     ```bash
-    make clean-full-db
+    run-app-upload # Potrebbe richiedere argomenti (es. percorso file), controlla l'implementazione di app_upload.py
     ```
-    **Warning**: This action is irreversible and will remove all indexed transcriptions.
 
-## Development Mode
+*   **`show-db`**: Mostra il contenuto del database ChromaDB.
 
-If you set `DEV_MODE="true"` in your `.env` file, the audio conversion process will be limited to the first 30 seconds of the input file. This is useful for quickly testing the transcription and indexing pipeline without processing large files entirely.
+    ```bash
+    show-db
+    ```
 
-## Project Structure
+*   **`manage-db`**: Permette di gestire il database ChromaDB. Supporta i seguenti sottocomandi:
 
-```
-.
-├── app_query.py              # Handles querying the RAG system
-├── app_upload.py             # Handles file upload and transcription flow
-├── main.py                   # Main entry point for the application
-├── Makefile                  # Convenience commands (e.g., `make upload`)
-├── requirements.txt          # Python dependencies
-├── setup.sh                  # Script for initial setup (e.g., installing pnpm)
-├── verify_setup.py           # Script to verify environment setup
-├── .env.example              # Example .env file
-├── .gitignore                # Git ignore rules
-├── logs/                     # Log files (ignored by Git)
-├── chroma_db/                # Local ChromaDB storage (ignored by Git)
-├── transcriptions/           # Stores final transcription text files (ignored by Git)
-├── temp/                     # Temporary files during processing (ignored by Git)
-├── rag_system/
-│   ├── cleaner.py            # Tools for managing the ChromaDB
-│   ├── indexer.py            # Handles indexing transcriptions into ChromaDB
-│   ├── retriever.py          # Handles retrieving relevant documents from ChromaDB
-│   └── verifier.py           # Verifies ChromaDB integrity
-└── transcription_pipeline/
-    ├── logger.py             # Logs API usage
-    ├── transcriber.py        # Core transcription and title generation logic
-    └── utils.py              # Utility functions (e.g., audio duration)
-```
+    -   Listare documenti:
+
+        ```bash
+        manage-db list
+        ```
+
+    -   Cancellare documenti specifici per ID:
+
+        ```bash
+        manage-db delete <id1> <id2> ...
+        ```
+
+    -   Cancellare l'intero database:
+
+        ```bash
+        manage-db delete-all
+        ```
+

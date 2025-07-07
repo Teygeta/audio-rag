@@ -1,8 +1,0 @@
-pydub
-google-generativeai
-chromadb
-python-dotenv
-openai
-langchain_openai
-langchain_chroma
-langchain_text_splitters

@@ -46,5 +46,8 @@ def verify_chroma_db(collection_name: str = "transcriptions_collection"):
     except Exception as e:
         print(f"Error verifying ChromaDB: {e}", file=sys.stderr)
 
-if __name__ == "__main__":
+def main():
     verify_chroma_db()
+
+if __name__ == "__main__":
+    main()

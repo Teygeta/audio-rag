@@ -69,9 +69,9 @@ def check_chroma_db_directory():
         print(f"Directory '{db_path}' does not exist. It will be created when you index data. [WARNING]")
         return True # It's a warning, not a critical failure for setup
 
-if __name__ == "__main__":
+def main():
     print("\n--- Running Project Setup Verification ---")
-    
+
     results = {
         "python_version": check_python_version(),
         "dependencies": check_dependencies(),
@@ -94,3 +94,6 @@ if __name__ == "__main__":
     else:
         print("\nSome critical checks failed. Please address the issues above.")
         sys.exit(1)
+
+if __name__ == "__main__":
+    main()
