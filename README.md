@@ -1,91 +1,91 @@
 # Audio-RAG Project
 
-Questo progetto implementa un sistema di Retrieval Augmented Generation (RAG) per contenuti audio/video. Permette di trascrivere file multimediali, indicizzare il testo risultante in un database vettoriale (ChromaDB) e interrogare il database per trovare informazioni pertinenti.
+This project implements a Retrieval Augmented Generation (RAG) system for audio/video content. It allows you to transcribe multimedia files, index the resulting text into a vector database (ChromaDB), and query the database to find relevant information.
 
 ## Setup
 
-Segui questi passaggi per configurare il progetto sul tuo sistema:
+Follow these steps to set up the project on your system:
 
-1.  **Clona il repository:**
+1.  **Clone the repository:**
 
     ```bash
-    git clone <URL del repository>
-    cd audio-rag # o il nome della directory del progetto
+    git clone <repository URL>
+    cd audio-rag # or the project directory name
     ```
 
-2.  **Esegui lo script di setup cross-platform:**
+2.  **Run the cross-platform setup script:**
 
     ```bash
     python -m setup_project
     ```
 
-    Questo script creerà un ambiente virtuale (`.venv`), installerà le dipendenze necessarie e ti guiderà nella configurazione delle chiavi API nel file `.env`.
+    This script will create a virtual environment (`.venv`), install necessary dependencies, and guide you through configuring API keys in the `.env` file.
 
-3.  **Attiva l'ambiente virtuale:**
+3.  **Activate the virtual environment:**
 
-    -   Su Linux/macOS:
+    -   On Linux/macOS:
 
         ```bash
         source .venv/bin/activate
         ```
 
-    -   Su Windows:
+    -   On Windows:
 
         ```bash
         .venv\Scripts\activate
         ```
 
-    Assicurati che l'ambiente virtuale sia attivo ogni volta che lavori al progetto (vedrai `(.venv)` all'inizio del prompt del tuo terminale).
+    Ensure the virtual environment is active whenever you work on the project (you will see `(.venv)` at the beginning of your terminal prompt).
 
-## Utilizzo
+## Usage
 
-Una volta completato il setup e attivato l'ambiente virtuale, puoi utilizzare i seguenti script:
+Once the setup is complete and the virtual environment is activated, you can use the following scripts:
 
-*   **`setup_project.py`**: Esegue il setup iniziale del progetto (creazione venv, installazione dipendenze, configurazione .env). Utile se hai bisogno di riconfigurare l'ambiente.
+*   **`setup_project.py`**: Performs the initial project setup (venv creation, dependency installation, .env configuration). Useful if you need to reconfigure the environment.
 
     ```bash
     python setup_project.py
     ```
 
-*   **`verify_setup.py`**: Verifica che l'ambiente di setup sia corretto (versione Python, dipendenze, FFmpeg, chiavi API, directory ChromaDB).
+*   **`verify_setup.py`**: Verifies that the setup environment is correct (Python version, dependencies, FFmpeg, API keys, ChromaDB directory).
 
     ```bash
     python verify_setup.py
     ```
 
-*   **`app_query.py`**: Esegue la logica per interrogare il database indicizzato.
+*   **`app_query.py`**: Executes the logic for querying the indexed database.
 
     ```bash
-    python app_query.py "La tua domanda qui"
+    python app_query.py "Your query here"
     ```
 
-*   **`app_upload.py`**: Esegue la logica per l'upload e l'ingestione di nuovi file audio/video per la trascrizione e l'indicizzazione.
+*   **`app_upload.py`**: Executes the logic for uploading and ingesting new audio/video files for transcription and indexing.
 
     ```bash
-    python app_upload.py <percorso_del_file_audio/video>
+    python app_upload.py <path_to_audio/video_file>
     ```
 
-*   **`rag_system/verifier.py`**: Mostra il contenuto del database ChromaDB.
+*   **`rag_system/verifier.py`**: Displays the content of the ChromaDB database.
 
     ```bash
     python rag_system/verifier.py
     ```
 
-*   **`rag_system/cleaner.py`**: Permette di gestire il database ChromaDB. Supporta i seguenti sottocomandi:
+*   **`rag_system/cleaner.py`**: Allows managing the ChromaDB database. Supports the following subcommands:
 
-    -   Listare documenti:
+    -   List documents:
 
         ```bash
         python rag_system/cleaner.py list
         ```
 
-    -   Cancellare documenti specifici per ID:
+    -   Delete specific documents by ID:
 
         ```bash
         python rag_system/cleaner.py delete <id1> <id2> ...
         ```
 
-    -   Cancellare l'intero database:
+    -   Delete the entire database:
 
         ```bash
         python rag_system/cleaner.py delete-all
