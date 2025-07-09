@@ -14,5 +14,6 @@ setup(
         'langchain_openai',
         'langchain_chroma',
         'langchain_text_splitters',
+        'langchain-community',
     ],
 )

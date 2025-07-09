@@ -91,3 +91,21 @@ Once the setup is complete and the virtual environment is activated, you can use
         python rag_system/cleaner.py delete-all
         ```
 
+## Language Model Configuration
+
+This project supports using either the Google Gemini model or a local model via Ollama.
+
+To configure which model to use, set the `LLM_TYPE` environment variable in your `.env` file. It can be either `gemini` (default) or `ollama`.
+
+### Using Google Gemini
+
+Set `LLM_TYPE=gemini` in your `.env` file and ensure your `GOOGLE_API_KEY` is set.
+
+### Using Ollama
+
+1.  Install Ollama from [https://ollama.com/](https://ollama.com/).
+2.  Pull the desired model (e.g., `ollama pull llama2`).
+3.  Set `LLM_TYPE=ollama` in your `.env` file.
+4.  Optionally, set `OLLAMA_MODEL` in your `.env` file to specify the model name (defaults to `llama2`).
+5.  Ensure you have installed the necessary dependencies by running `python setup_project.py` (this will install `langchain-community`).
+
